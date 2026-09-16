@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Native build products
+*.so
+*.dylib
+*.dll
+*.o
+*.a
+
+# Generated simulation and analysis outputs
+outputs/
+*.npz
+*.npy
+*.csv
+*.png
+*.pdf
+*.vtk
+*.vtu
+*.vtm
+*.series
+*.msh
+*.foam
+log.*
+
+# OpenFOAM generated directories
+processor*/
+postProcessing/
+VTK/
+[0-9]*/
+
+# Manuscript and local writing artifacts are intentionally excluded
+paper/
+manuscript/
+*.tex
+*.bib
+*.aux
+*.bbl
+*.blg
+*.log
+
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+
+# Keep the small derived CSV summaries referenced in the README
+!reference_results/**
