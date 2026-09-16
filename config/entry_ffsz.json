@@ -1,0 +1,139 @@
+{
+  "study_name": "grain_to_grain_entry_ffsz",
+  "data_root": "/Users/dbolster/Documents/New Folder",
+  "output_dir": "outputs/entry_ffsz",
+  "target_mean_velocity_m_per_day": 4.0,
+  "profiles": {
+    "no_dlvo": {
+      "label": "No DLVO",
+      "condition": "no_dlvo",
+      "allow_attachment": false,
+      "updates": {}
+    },
+    "favorable_50mM": {
+      "label": "Favorable 50 mM",
+      "condition": "favorable",
+      "allow_attachment": true,
+      "updates": {
+        "ionic_strength_molar": 0.05,
+        "zeta_collector_favorable": 0.07
+      }
+    },
+    "unfavorable_50mM": {
+      "label": "Unfavorable 50 mM",
+      "condition": "unfavorable",
+      "allow_attachment": false,
+      "updates": {
+        "ionic_strength_molar": 0.05,
+        "zeta_collector_unfavorable": -0.07
+      }
+    },
+    "unfavorable_100mM": {
+      "label": "Unfavorable 100 mM",
+      "condition": "unfavorable",
+      "allow_attachment": false,
+      "updates": {
+        "ionic_strength_molar": 0.1,
+        "zeta_collector_unfavorable": -0.07
+      }
+    },
+    "unfavorable_50mM_100D0": {
+      "label": "Unfavorable 50 mM, 100D0",
+      "condition": "unfavorable",
+      "allow_attachment": false,
+      "updates": {
+        "ionic_strength_molar": 0.05,
+        "zeta_collector_unfavorable": -0.07,
+        "diffusivity_multiplier": 100.0
+      }
+    }
+  },
+  "profile_order": [
+    "no_dlvo",
+    "favorable_50mM",
+    "unfavorable_50mM",
+    "unfavorable_100mM",
+    "unfavorable_50mM_100D0"
+  ],
+  "pilot": {
+    "periodic_particles_per_seed": 5000,
+    "random_particles_per_seed": 400,
+    "seeds": [2026081901],
+    "periodic_max_time_s": 120.0,
+    "random_max_time_s": 150.0,
+    "chunk_size": 400
+  },
+  "confirmatory": {
+    "periodic_particles_per_seed": 8000,
+    "random_particles_per_seed": 800,
+    "seeds": [2026081901, 2026081902, 2026081903],
+    "periodic_max_time_s": 180.0,
+    "random_max_time_s": 180.0,
+    "chunk_size": 800
+  },
+  "production": {
+    "periodic_particles_per_seed": 20000,
+    "random_particles_per_seed": 10000,
+    "seeds": [2026081901, 2026081902, 2026081903, 2026081904, 2026081905],
+    "periodic_max_time_s": 400.0,
+    "random_max_time_s": 500.0,
+    "chunk_size": 2000
+  },
+  "particle_tracking": {
+    "periodic_dt_s": 0.001,
+    "random_dt_s": 0.002,
+    "near_surface_m": 2e-7,
+    "contact_gap_m": 1e-9,
+    "adaptive_cutoff_m": 7.5e-8,
+    "normal_step_target_m": 3e-9,
+    "minimum_substep_s": 1e-6,
+    "maximum_substeps": 5000,
+    "injection": "flux_weighted",
+    "stop_at_next_distinct_collector": true
+  },
+  "periodic": {
+    "flow_path": "outputs/openfoam_flow/openfoam_flow_N512.npz"
+  },
+  "random_geometries": [
+    {
+      "name": "through_random_00",
+      "geometry_path": "outputs/stage1_geometry_screen/geometries/through_random_00/geometry.json",
+      "flow_case": "outputs/stage1_openfoam_flow/through_random_00_gmsh_screen"
+    },
+    {
+      "name": "through_random_01",
+      "geometry_path": "outputs/stage1_geometry_screen/geometries/through_random_01/geometry.json",
+      "flow_case": "outputs/stage1_openfoam_flow/through_random_01_gmsh_screen"
+    },
+    {
+      "name": "through_many_small_grains",
+      "geometry_path": "outputs/stage1_geometry_screen/geometries/through_many_small_grains/geometry.json",
+      "flow_case": "outputs/stage1_openfoam_flow/through_many_small_grains_gmsh_screen"
+    },
+    {
+      "name": "through_wide_throats",
+      "geometry_path": "outputs/stage1_geometry_screen/geometries/through_wide_throats/geometry.json",
+      "flow_case": "outputs/stage1_openfoam_flow/through_wide_throats_gmsh_screen"
+    },
+    {
+      "name": "through_low_porosity",
+      "geometry_path": "outputs/stage1_geometry_screen/geometries/through_low_porosity/geometry.json",
+      "flow_case": "outputs/stage1_openfoam_flow/through_low_porosity_gmsh_screen"
+    }
+  ],
+  "random_flow_raster": {
+    "nx": 1536,
+    "ny": 1024,
+    "idw_neighbors": 8,
+    "apply_flow_origin_shift": true,
+    "rescale_to_target_velocity": true
+  },
+  "analysis": {
+    "ffsz_window_degrees": 30.0,
+    "stagnation_shell_gap_m": 2e-7,
+    "stagnation_angle_samples": 1440,
+    "bootstrap_replicates": 4000,
+    "minimum_paired_support_pilot": 150,
+    "minimum_paired_support_production": 1000
+  }
+}

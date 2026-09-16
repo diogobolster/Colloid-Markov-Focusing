@@ -1,0 +1,113 @@
+{
+  "name": "openfoam_50mM_dt1ms_periodic_cell",
+  "description": "Production workflow for homogeneous 50 mM DLVO focusing in the periodic center/corner-grain cell.",
+  "flow": {
+    "path": "outputs/openfoam_flow/openfoam_flow_N512.npz",
+    "resolution": 512
+  },
+  "particle_tracking": {
+    "dt_ms": 1.0,
+    "surface_mode": "resolved_langevin",
+    "near_wall_substeps": 25,
+    "near_wall_cutoff_nm": 75.0,
+    "normal_step_target_nm": 3.0,
+    "min_substep_us": 1.0
+  },
+  "production_run": {
+    "out_name": "openfoam_focusing_dt1ms",
+    "figure_prefix": "fig24_openfoam_focusing_dt1ms",
+    "profiles": [
+      "neutral_resolved",
+      "unfavorable_50mM_z70",
+      "unfavorable_50mM_z50",
+      "unfavorable_50mM_z30"
+    ]
+  },
+  "full_condition_suite": {
+    "out_name": "openfoam_full_suite",
+    "figure_prefix": "fig26_openfoam_full_suite",
+    "chunk_size": 6000,
+    "workers": 4,
+    "profiles": [
+      "neutral_resolved",
+      "unfavorable_6mM_z70",
+      "unfavorable_20mM_z70",
+      "unfavorable_50mM_z70",
+      "unfavorable_100mM_z70",
+      "unfavorable_50mM_z50",
+      "unfavorable_50mM_z30",
+      "unfavorable_100mM_z30",
+      "mechanism_50mM_z20_A10x",
+      "mechanism_100mM_z20_A10x",
+      "neutral_100xD",
+      "unfavorable_50mM_z70_100xD"
+    ]
+  },
+  "validation": {
+    "regression_output": "outputs/regression",
+    "focusing_refinement_csv": "outputs/openfoam_focusing_dt1ms/openfoam_refinement_summary.csv",
+    "focusing_transition_csv": "outputs/openfoam_focusing_dt1ms/openfoam_transition_rows.csv",
+    "timestep_audit_csv": "outputs/timestep_audit/timestep_audit_summary.csv",
+    "convergence_csv": "outputs/openfoam_convergence/openfoam_convergence_summary.csv",
+    "expected_refinement": {
+      "unfavorable_50mM_z70": {
+        "f30": 0.59278059785674,
+        "f30_abs_tolerance": 0.03,
+        "median_angle_deg": 16.578964485545846,
+        "angle_abs_tolerance_deg": 4.0,
+        "min_releases": 1600,
+        "max_unresolved": 0
+      },
+      "unfavorable_50mM_z50": {
+        "f30": 0.6530147895335608,
+        "f30_abs_tolerance": 0.03,
+        "median_angle_deg": 9.273816682924007,
+        "angle_abs_tolerance_deg": 4.0,
+        "min_releases": 1600,
+        "max_unresolved": 0
+      },
+      "unfavorable_50mM_z30": {
+        "f30": 0.739355581127733,
+        "f30_abs_tolerance": 0.03,
+        "median_angle_deg": 2.2392125513004437,
+        "angle_abs_tolerance_deg": 3.0,
+        "min_releases": 1600,
+        "max_unresolved": 0
+      }
+    },
+    "expected_transition_center_core": {
+      "unfavorable_50mM_z70": {
+        "f30": 0.5715287517531557,
+        "f30_abs_tolerance": 0.035,
+        "min_releases": 1200,
+        "max_unresolved": 0
+      },
+      "unfavorable_50mM_z50": {
+        "f30": 0.6566491359879789,
+        "f30_abs_tolerance": 0.035,
+        "min_releases": 1200,
+        "max_unresolved": 0
+      },
+      "unfavorable_50mM_z30": {
+        "f30": 0.7662807525325616,
+        "f30_abs_tolerance": 0.035,
+        "min_releases": 1200,
+        "max_unresolved": 0
+      }
+    },
+    "expected_timestep_audit": {
+      "group": "center_well_release",
+      "min_particles": 1600,
+      "min_median_adaptive_substeps": 500000,
+      "max_guard_hits": 0,
+      "max_min_dt_hit_fraction": 0.001,
+      "max_inward_det_normal_step_nm": 0.25,
+      "max_brownian_normal_std_nm": 1.6
+    },
+    "expected_convergence": {
+      "profile": "unfavorable_50mM_z50",
+      "max_abs_f30_delta_vs_baseline": 0.035,
+      "max_unresolved": 0
+    }
+  }
+}

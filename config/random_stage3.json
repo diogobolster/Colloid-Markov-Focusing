@@ -1,0 +1,42 @@
+{
+  "out_root": "outputs/stage3_particle_production",
+  "production": {
+    "candidates": [
+      "through_many_small_grains",
+      "through_wide_throats",
+      "through_random_00",
+      "through_random_01",
+      "through_low_porosity"
+    ],
+    "profiles": [
+      "neutral_resolved",
+      "favorable_50mM_z70",
+      "unfavorable_50mM_z70",
+      "unfavorable_50mM_z70_100xD"
+    ],
+    "particles": 10000,
+    "chunk_size": 2500,
+    "max_time_s": 90.0,
+    "dt_s": 0.002,
+    "matrix_bins": 40,
+    "grid_nx": 384,
+    "grid_ny": 256
+  },
+  "shadow": {
+    "candidate": "through_many_small_grains",
+    "out_dir": "outputs/stage3_transport_shadow/through_many_small_grains_n100k",
+    "profiles": [
+      "neutral_resolved",
+      "unfavorable_50mM_z70",
+      "unfavorable_50mM_z70_100xD"
+    ],
+    "particles": 100000,
+    "chunk_size": 5000,
+    "max_time_s": 90.0,
+    "dt_s": 0.002,
+    "pore_nx": 96,
+    "pore_ny": 64,
+    "surface_bins": 36,
+    "sample_stride": 10
+  }
+}
